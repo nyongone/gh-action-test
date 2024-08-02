@@ -24,7 +24,7 @@ jobs:
             - name: Upload Artifact
               uses: actions/upload-artifact@v4
               with:
-                  name: dist
+                  name: distfile
                   path: dist.zip
 
             - name: Get Current Directory
@@ -32,3 +32,20 @@ jobs:
 
             - name: Get Current Directory's Folder Structure
               run: ls
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Download Artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: distfile
+
+            - name: Get Keys
+              run: |
+                  echo "${{ secrets.EC2_SSH_KEY }} > key.pem"
+                  chmod 600 key.pem
+
+            - name: pwd
+              run: pwd
