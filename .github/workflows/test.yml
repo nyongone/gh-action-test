@@ -56,5 +56,5 @@ jobs:
             - name: Upload Artifact to EC2 Instance
               run: |
                   scp -i key.pem -o StrictHostKeyChecking=no dist.zip ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ubuntu
-                  ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "unzip dist.zip -d /home/ubuntu && rm -rf dist.zip"
+                  ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "rm -rf ./dist && unzip dist.zip -d /home/ubuntu && rm -rf dist.zip"
                   rm -rf key.pem
