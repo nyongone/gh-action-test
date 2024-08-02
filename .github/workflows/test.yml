@@ -16,7 +16,7 @@ jobs:
               run: npm install
 
             - name: Build Project
-              run: npm build
+              run: npm run build
 
             - name: Get Current Directory
               run: pwd
