@@ -52,3 +52,6 @@ jobs:
 
             - name: ls
               run: ls
+
+            - name: Upload file to EC2 Instance
+              run: scp -i key.pem dist.zip ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ubuntu
