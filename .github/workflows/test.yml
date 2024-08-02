@@ -1,0 +1,15 @@
+name: GitHub Action Test
+
+on:
+    push:
+        branches: ["main"]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: action/checkout@v3
+
+            - name: Run "echo" Script
+              run: echo "Hello, world!"
