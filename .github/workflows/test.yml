@@ -9,7 +9,14 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - uses: actions/checkout@v3
+            - name: Checkout Repository
+              uses: actions/checkout@v3
 
-            - name: Run "echo" Script
-              run: echo "Hello, world!"
+            - name: Install Dependencies
+              run: npm install
+
+            - name: Build Project
+              run: npm build
+
+            - name: Get Current Directory
+              run: pwd
