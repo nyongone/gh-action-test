@@ -53,5 +53,7 @@ jobs:
             - name: ls
               run: ls
 
-            - name: Upload file to EC2 Instance
-              run: scp -i key.pem -o StrictHostKeyChecking=no dist.zip ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ubuntu
+            - name: Upload Artifact to EC2 Instance
+              run: |
+                  scp -i key.pem -o StrictHostKeyChecking=no dist.zip ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ubuntu
+                  ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "unzip dist.zip -d /home/ubuntu/dist"
