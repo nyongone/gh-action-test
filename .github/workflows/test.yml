@@ -3,9 +3,14 @@ name: GitHub Action Test
 on:
     push:
         branches: ["main"]
+    pull_request:
+        branches: ["main"]
+        types:
+            - closed
 
 jobs:
     build:
+        if: github.event.pull_request.merged == true
         runs-on: ubuntu-latest
 
         steps:
@@ -56,4 +61,5 @@ jobs:
             - name: Upload Artifact to EC2 Instance
               run: |
                   scp -i key.pem -o StrictHostKeyChecking=no dist.zip ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/ubuntu
-                  ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "unzip dist.zip -d /home/ubuntu/dist"
+                  ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "unzip dist.zip -d /home/ubuntu && rm -rf dist.zip"
+                  rm -rf key.pem
