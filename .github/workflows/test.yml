@@ -18,6 +18,9 @@ jobs:
             - name: Build Project
               run: npm run build
 
+            - name: Zipping Artifact
+              run: zip -r dist.zip ./dist/*
+
             - name: Get Current Directory
               run: pwd
 
