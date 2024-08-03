@@ -13,18 +13,26 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v3
 
+            - Registry Bun
+            - uses: oven-sh/setup-bun@v2
+              with:
+                  bun-version: latest
+
+            - name: Get Bun Cache
+              id: bun-cache
+              run: echo "CACHEDIR=$(bun pm cache)" >> $GITHUB_OUTPUTS
+
             - name: Caching Dependencies
               uses: actions/cache@v4
-              id: npm-cache
               with:
-                  path: ~/.npm
-                  key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+                  path: ${{ steps.bun-cache.outputs.CACHEDIR }}
+                  key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lockb') }}
 
             - name: Install Dependencies
-              run: npm ci
+              run: bun install --frozen-lockfile
 
             - name: Build Project
-              run: npm run build
+              run: bun run build
 
             - name: Zipping Artifact
               run: zip -r dist.zip ./dist/*
