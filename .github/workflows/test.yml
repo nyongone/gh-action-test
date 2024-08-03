@@ -13,7 +13,7 @@ jobs:
             - name: Checkout Repository
               uses: actions/checkout@v3
 
-            - Registry Bun
+            - name: Registry Bun
             - uses: oven-sh/setup-bun@v2
               with:
                   bun-version: latest
