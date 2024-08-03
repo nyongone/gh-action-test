@@ -2,7 +2,8 @@ name: GitHub Action Test
 
 on:
     push:
-        branches: ["main"]
+        branches:
+            - main
 
 jobs:
     build:
@@ -18,7 +19,9 @@ jobs:
               with:
                   path: ~/.npm
                   key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-              run: npm ci
+
+            - name: Install Dependencies
+              run: npm install
 
             - name: Build Project
               run: npm run build
