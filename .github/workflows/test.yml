@@ -27,6 +27,8 @@ jobs:
               with:
                   path: ${{ steps.bun-cache.outputs.CACHEDIR }}
                   key: ${{ runner.os }}-node-${{ hashFiles('**/bun.lockb') }}
+                  restore-keys: |
+                      ${{ runner.os }}-node-
 
             - name: Install Dependencies
               run: bun install --frozen-lockfile
